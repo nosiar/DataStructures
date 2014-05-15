@@ -5,7 +5,7 @@
 class BigInteger
 {
 public:
-	BigInteger();
+	BigInteger(char *number);
 
 	BigInteger(const BigInteger &other);
 

@@ -1,6 +1,6 @@
 #include "BigInteger.h"
 
-BigInteger::BigInteger()
+BigInteger::BigInteger(char *number)
 {
 
 }
@@ -22,17 +22,20 @@ BigInteger& BigInteger::operator=(const BigInteger &rhs)
 
 const BigInteger BigInteger::operator+(const BigInteger &other) const
 {
-	return BigInteger();
+	char *tmp = nullptr;
+	return BigInteger(tmp);
 }
 
 const BigInteger BigInteger::operator-(const BigInteger &other) const
 {
-	return BigInteger();
+	char *tmp = nullptr;
+	return BigInteger(tmp);
 }
 
 const BigInteger BigInteger::operator*(const BigInteger &other) const
 {
-	return BigInteger();
+	char *tmp = nullptr;
+	return BigInteger(tmp);
 }
 
 BigInteger::~BigInteger()
