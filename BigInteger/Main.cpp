@@ -36,7 +36,15 @@ void test()
 
     std::cout << +BigInteger("123") << '\n';
     std::cout << -BigInteger("123") << '\n';
-    std::cout << BigInteger("1") + BigInteger("2") + BigInteger("3") << '\n';
+    std::cout << BigInteger("1") + BigInteger("2") + BigInteger("3") << "\n\n";
+
+    std::cout << BigInteger("12345") * BigInteger("12") << '\n';
+    std::cout << BigInteger("12") * BigInteger("12345") << '\n';
+    std::cout << BigInteger("9") * BigInteger("12345") << '\n';
+    std::cout << BigInteger("12345") * BigInteger("9") << '\n';
+    std::cout << BigInteger("99999999999999") * BigInteger("99999999999999") << '\n';
+    std::cout << BigInteger("99999999999999") * BigInteger("0") << '\n';
+    std::cout << BigInteger("0") * BigInteger("99999999999999") << '\n';
 }
 
 bool is_operator(std::string token)

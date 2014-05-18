@@ -99,7 +99,13 @@ const BigInteger BigInteger::operator-(const BigInteger &other) const
 
 const BigInteger BigInteger::operator*(const BigInteger &other) const
 {
-    return BigInteger();
+    BigInteger result;
+    
+    result.reverse_number = mul(this->reverse_number, other.reverse_number);
+    
+    result.plus = !(this->plus ^ other.plus);
+
+    return result;
 }
 
 const BigInteger BigInteger::operator+() const
@@ -213,6 +219,48 @@ const std::string BigInteger::mul(const std::string &lhs, const std::string &rhs
     std::string result;
 
     result.reserve(lhs.size() + rhs.size());
+    
+    auto lhs_begin = lhs.begin();
+    auto rhs_begin = rhs.rbegin();
+    auto result_it = std::back_inserter(result);
+
+    int max_digit = lhs.size() - 1 + rhs.size() - 1;
+
+    int carry = 0;
+
+    for(int digit = 0; digit <= max_digit; ++digit )
+    {
+        int lhs_start = std::max(0, digit - (int)(rhs.size() - 1));
+        int rhs_start = std::max(0, (int)(rhs.size() - 1) - digit);
+
+        auto lhs_it = lhs_begin + lhs_start;
+        auto rhs_it = rhs_begin + rhs_start;
+        
+        int sum = 0;
+        while(lhs_it != lhs.end() && rhs_it != rhs.rend())
+        {
+            sum += (*lhs_it++ - 48) * (*rhs_it++ - 48);
+        }
+        sum += carry;
+
+        *result_it++ = sum % 10 + 48;
+
+        carry = sum / 10;
+    }
+    
+    while(carry > 0)
+    {
+        *result_it++ = carry % 10 + 48;
+
+        carry /= 10;
+    }
+    
+    // remove 0s
+    result.resize(result.find_last_not_of('0')+1);
+    if(result.empty())
+        result.append("0");
+
+    return result;
 }
 
 int BigInteger::compare(const std::string &lhs, const std::string &rhs) const
