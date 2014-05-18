@@ -1,6 +1,4 @@
-#ifndef DATASTRUCTURE_BIGINTEGER_H
-#define DATASTRUCTURE_BIGINTEGER_H
-
+#pragma once;
 
 class BigInteger
 {
@@ -17,12 +15,10 @@ public:
 	const BigInteger operator-(const BigInteger &other) const ;
 	const BigInteger operator*(const BigInteger &other) const ;
 
-	virtual ~BigInteger();
+	virtual ~BigInteger() { delete [] number; };
 
 private:
+	bool plus;
 	char *number;
 };
 
-
-
-#endif /* DATASTRUCTURE_BIGINTEGER_H */

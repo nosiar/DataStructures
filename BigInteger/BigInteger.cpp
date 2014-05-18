@@ -37,8 +37,3 @@ const BigInteger BigInteger::operator*(const BigInteger &other) const
 	char *tmp = nullptr;
 	return BigInteger(tmp);
 }
-
-BigInteger::~BigInteger()
-{
-
-}
