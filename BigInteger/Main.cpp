@@ -1,18 +1,27 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <boost/algorithm/string.hpp>
+#include <boost/tokenizer.hpp>
 
+
+bool is_operator(std::string token)
+{
+	return token.find_first_of("+-*/") != std::string::npos;
+}
 
 void process(std::string &line)
 {
-	std::vector<std::string> split_vector;
+	// Alias templates are not supported in VC11
+	// using tokenizer = boost::tokenizer<boost::char_separator<char>>;
+	typedef boost::tokenizer<boost::char_separator<char>> tokenizer;
 
-	boost::split(split_vector, line, boost::is_any_of("\t "), boost::token_compress_on);
+	boost::char_separator<char> sep("\t ", "+-*/");
 
-	for(auto &x : split_vector)
+	tokenizer tokens(line, sep);
+
+	for(auto &x : tokens)
 	{
-		std::cout << x << std::endl;
+		std::cout << "<" << x << "> " << is_operator(x) << std::endl;
 	}
 }
 
