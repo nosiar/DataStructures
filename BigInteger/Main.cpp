@@ -30,7 +30,7 @@ void test()
     std::cout << BigInteger("-23367") - BigInteger("+11748") << '\n';
     std::cout << BigInteger("-23367") - BigInteger("-11748") << "\n\n";
 
-    std::cout << BigInteger("123456") - BigInteger("123456") << '\n';
+    std::cout << BigInteger("-123456") - BigInteger("-123456") << '\n';
     std::cout << BigInteger("999999") - BigInteger("-1") << '\n';
     std::cout << BigInteger("0") - BigInteger("0") << "\n\n";
 
@@ -42,9 +42,10 @@ void test()
     std::cout << BigInteger("12") * BigInteger("12345") << '\n';
     std::cout << BigInteger("9") * BigInteger("12345") << '\n';
     std::cout << BigInteger("12345") * BigInteger("9") << '\n';
-    std::cout << BigInteger("99999999999999") * BigInteger("99999999999999") << '\n';
-    std::cout << BigInteger("99999999999999") * BigInteger("0") << '\n';
+    std::cout << BigInteger("-99999999999999") * BigInteger("99999999999999") << '\n';
+    std::cout << BigInteger("-99999999999999") * BigInteger("0") << '\n';
     std::cout << BigInteger("0") * BigInteger("99999999999999") << '\n';
+    std::cout << BigInteger("0") * BigInteger("0") << '\n';
 }
 
 bool is_operator(std::string token)

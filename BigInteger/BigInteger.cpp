@@ -14,7 +14,10 @@ BigInteger::BigInteger(const std::string &number) : reverse_number(number)
     }
     else if(reverse_number.back() == '-')
     {
-        plus = false;
+        if(reverse_number == "0")
+            plus = true;
+        else
+            plus = false;
         reverse_number.pop_back();
     }
     else
@@ -53,7 +56,10 @@ const BigInteger BigInteger::operator+(const BigInteger &other) const
         result.reverse_number = sub(this->reverse_number, other.reverse_number);
 
         int r = compare(this->reverse_number, other.reverse_number);
-        if(r > 0)
+        
+        if(result.reverse_number == "0")
+            result.plus = true;
+        else if(r > 0)
             result.plus = this->plus;
         else if( r < 0)
             result.plus = other.plus;
@@ -86,7 +92,10 @@ const BigInteger BigInteger::operator-(const BigInteger &other) const
         result.reverse_number = sub(this->reverse_number, other.reverse_number);
 
         int r = compare(this->reverse_number, other.reverse_number);
-        if(r > 0)
+
+        if(result.reverse_number == "0")
+            result.plus = true;
+        else if(r > 0)
             result.plus = this->plus;
         else if( r < 0)
             result.plus = !other.plus;
@@ -103,7 +112,10 @@ const BigInteger BigInteger::operator*(const BigInteger &other) const
     
     result.reverse_number = mul(this->reverse_number, other.reverse_number);
     
-    result.plus = !(this->plus ^ other.plus);
+    if(result.reverse_number == "0")
+        result.plus = true;
+    else
+        result.plus = !(this->plus ^ other.plus);
 
     return result;
 }
