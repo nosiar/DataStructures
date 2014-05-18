@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <stdexcept>
 #include <boost/tokenizer.hpp>
 #include "BigInteger.h"
 
@@ -48,6 +49,8 @@ void test()
     std::cout << BigInteger("0") * BigInteger("0") << '\n';
 }
 
+enum class State { INIT, LHS, OP, RHS };
+
 bool is_operator(std::string token)
 {
     return token.find_first_of("+-*/") != std::string::npos;
@@ -63,21 +66,97 @@ void process(std::string &line)
 
     tokenizer tokens(line, sep);
 
+    State s = State::INIT;
+
+    BigInteger lhs, rhs;
+    std::string unary_op = "+";
+    std::string binary_op;
+
     for(auto &x : tokens)
     {
-        std::cout << "<" << x << "> " << is_operator(x) << std::endl;
+        if(is_operator(x))
+        {
+            if(s == State::INIT || s == State::OP)
+            {
+                if(x == "-")
+                {
+                    if(unary_op == "+")
+                        unary_op = "-";
+                    else
+                        unary_op = "+";
+                }
+                else if(x != "+")
+                    throw std::invalid_argument("only '+' and '-' can be unary.");
+            }
+            else if(s == State::LHS)
+            {
+                binary_op = x;
+
+                s = State::OP;
+            }
+            else
+            {
+                throw std::invalid_argument("invalid input.");
+            }
+        }
+        else
+        {
+            if(s == State::INIT)
+            {
+                if(unary_op == "+")
+                    lhs = BigInteger(x);
+                else
+                    lhs = -BigInteger(x);
+
+                unary_op = "+";
+
+                s = State::LHS;
+            }
+            else if(s == State::LHS)
+            {
+                throw std::invalid_argument("a number can't come after a number.");
+            }
+            else if (s == State::OP)
+            {
+                if(unary_op == "+")
+                    rhs = BigInteger(x);
+                else
+                    rhs = -BigInteger(x);
+
+                s = State::RHS;
+            }
+            else
+            {
+                throw std::invalid_argument("invalid input.");
+            }
+        }
     }
+
+    if(s != State::RHS)
+        throw std::invalid_argument("invalid input.");
+    
+    if(binary_op == "+")
+        std::cout << lhs + rhs << '\n';
+    else if(binary_op == "-")
+        std::cout << lhs - rhs << '\n';
+    else if(binary_op == "*")
+        std::cout << lhs * rhs << '\n';
 }
 
 int main() 
 {
-    test();
-
     for(std::string line; std::getline(std::cin, line); )
     {
         if(line == "quit")
             break;
 
-        process(line);
+        try
+        {
+            process(line);
+        }
+        catch (std::invalid_argument &e)
+        {
+            std::cout << e.what() << std::endl;
+        }
     }
 }
