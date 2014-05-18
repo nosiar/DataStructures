@@ -5,38 +5,39 @@
 class BigInteger
 {
 public:
-	BigInteger(const std::string &number);
-	BigInteger(std::string &&number);
+    BigInteger() : reverse_number("0"), plus(true) {}
 
-	BigInteger(const BigInteger &other) : reverse_number(other.reverse_number),
-										  plus(other.plus) {}
-	BigInteger(BigInteger &&other) : reverse_number(std::move(other.reverse_number)),
-									 plus(other.plus) {}
+    BigInteger(const std::string &number);
+    BigInteger(std::string &&number);
 
-	const BigInteger operator+(const BigInteger &other) const ;
-	const BigInteger operator-(const BigInteger &other) const ;
-	const BigInteger operator*(const BigInteger &other) const ;
-	const BigInteger operator/(const BigInteger &other) const ;
+    BigInteger(const BigInteger &other)
+        : reverse_number(other.reverse_number), plus(other.plus) {}
+    BigInteger(BigInteger &&other)
+        : reverse_number(std::move(other.reverse_number)), plus(other.plus) {}
 
-	const BigInteger operator+() const;
-	const BigInteger operator-() const;
+    const BigInteger operator+(const BigInteger &other) const;
+    const BigInteger operator-(const BigInteger &other) const;
+    const BigInteger operator*(const BigInteger &other) const;
+    //const BigInteger operator/(const BigInteger &other) const;
 
-	int size() const { return reverse_number.size(); }
+    const BigInteger operator+() const;
+    const BigInteger operator-() const;
 
-	virtual ~BigInteger() {};
+    int size() const { return reverse_number.size(); }
 
-	friend std::ostream& operator<<(std::ostream &os, const BigInteger &bi);
-	friend void test();
+    virtual ~BigInteger() {};
 
-private:
-	BigInteger() {}
-
-	std::string add(const std::string &lhs, const std::string &rhs) const;
-	std::string sub(const std::string &lhs, const std::string &rhs) const;
-	int compare(const std::string &lhs, const std::string &rhs) const;
+    friend std::ostream& operator<<(std::ostream &os, const BigInteger &bi);
+    friend void test();
 
 private:
-	bool plus;
-	std::string reverse_number;
+    const std::string add(const std::string &lhs, const std::string &rhs) const;
+    const std::string sub(const std::string &lhs, const std::string &rhs) const;
+    const std::string mul(const std::string &lhs, const std::string &rhs) const;
+    int compare(const std::string &lhs, const std::string &rhs) const;
+
+private:
+    bool plus;
+    std::string reverse_number;
 };
 
