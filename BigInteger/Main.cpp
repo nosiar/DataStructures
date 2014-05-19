@@ -149,7 +149,7 @@ void process(std::string &line)
         std::cout << lhs * rhs << '\n';
 }
 
-int main() 
+int main()
 {
     for(std::string line; std::getline(std::cin, line); )
     {

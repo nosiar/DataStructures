@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BigInteger", "BigInteger\BigInteger.vcxproj", "{EDFC6D59-6E18-4E49-B940-D39B942A6E65}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MovieDatabase", "MovieDatabase\MovieDatabase.vcxproj", "{B6AF0927-CF97-4E60-B994-CE13B8D6B248}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -13,6 +15,10 @@ Global
 		{EDFC6D59-6E18-4E49-B940-D39B942A6E65}.Debug|Win32.Build.0 = Debug|Win32
 		{EDFC6D59-6E18-4E49-B940-D39B942A6E65}.Release|Win32.ActiveCfg = Release|Win32
 		{EDFC6D59-6E18-4E49-B940-D39B942A6E65}.Release|Win32.Build.0 = Release|Win32
+		{B6AF0927-CF97-4E60-B994-CE13B8D6B248}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B6AF0927-CF97-4E60-B994-CE13B8D6B248}.Debug|Win32.Build.0 = Debug|Win32
+		{B6AF0927-CF97-4E60-B994-CE13B8D6B248}.Release|Win32.ActiveCfg = Release|Win32
+		{B6AF0927-CF97-4E60-B994-CE13B8D6B248}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
