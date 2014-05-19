@@ -9,20 +9,20 @@ BigInteger::BigInteger(const std::string &number) : reverse_number(number)
 
     if(reverse_number.back() == '+')
     {
-        plus = true;
+        positive = true;
         reverse_number.pop_back();
     }
     else if(reverse_number.back() == '-')
     {
         if(reverse_number == "0")
-            plus = true;
+            positive = true;
         else
-            plus = false;
+            positive = false;
         reverse_number.pop_back();
     }
     else
     {
-        plus = true;
+        positive = true;
     }
 }
 
@@ -32,17 +32,17 @@ BigInteger::BigInteger(std::string &&number) : reverse_number(std::move(number))
 
     if(reverse_number.back() == '+')
     {
-        plus = true;
+        positive = true;
         reverse_number.pop_back();
     }
     else if(reverse_number.back() == '-')
     {
-        plus = false;
+        positive = false;
         reverse_number.pop_back();
     }
     else
     {
-        plus = true;
+        positive = true;
     }
 }
 
@@ -51,26 +51,26 @@ const BigInteger BigInteger::operator+(const BigInteger &other) const
     BigInteger result;
 
     // this and other have difference signs.
-    if(this->plus ^ other.plus)
+    if(this->positive ^ other.positive)
     {		
         result.reverse_number = sub(this->reverse_number, other.reverse_number);
 
         int r = compare(this->reverse_number, other.reverse_number);
         
         if(result.reverse_number == "0")
-            result.plus = true;
+            result.positive = true;
         else if(r > 0)
-            result.plus = this->plus;
+            result.positive = this->positive;
         else if( r < 0)
-            result.plus = other.plus;
+            result.positive = other.positive;
         else
-            result.plus = true;
+            result.positive = true;
     }
     // this and other have same signs.
     else
     {
         result.reverse_number = add(this->reverse_number, other.reverse_number);
-        result.plus = this->plus;
+        result.positive = this->positive;
     }
 
     return result;
@@ -81,10 +81,10 @@ const BigInteger BigInteger::operator-(const BigInteger &other) const
     BigInteger result;
 
     // this and other have difference signs.
-    if(this->plus ^ other.plus)
+    if(this->positive ^ other.positive)
     {
         result.reverse_number = add(this->reverse_number, other.reverse_number);
-        result.plus = this->plus;
+        result.positive = this->positive;
     }
     // this and other have same signs.
     else
@@ -94,13 +94,13 @@ const BigInteger BigInteger::operator-(const BigInteger &other) const
         int r = compare(this->reverse_number, other.reverse_number);
 
         if(result.reverse_number == "0")
-            result.plus = true;
+            result.positive = true;
         else if(r > 0)
-            result.plus = this->plus;
+            result.positive = this->positive;
         else if( r < 0)
-            result.plus = !other.plus;
+            result.positive = !other.positive;
         else
-            result.plus = true;
+            result.positive = true;
     }
 
     return result;
@@ -113,9 +113,9 @@ const BigInteger BigInteger::operator*(const BigInteger &other) const
     result.reverse_number = mul(this->reverse_number, other.reverse_number);
     
     if(result.reverse_number == "0")
-        result.plus = true;
+        result.positive = true;
     else
-        result.plus = !(this->plus ^ other.plus);
+        result.positive = !(this->positive ^ other.positive);
 
     return result;
 }
@@ -129,7 +129,7 @@ const BigInteger BigInteger::operator-() const
 {
     BigInteger result(*this);
 
-    result.plus = !result.plus;
+    result.positive = !result.positive;
 
     return result;
 }
@@ -228,6 +228,12 @@ const std::string BigInteger::sub(const std::string &lhs, const std::string &rhs
 
 const std::string BigInteger::mul(const std::string &lhs, const std::string &rhs) const
 {
+    /* a = an*10^n + ... + a1*10 + a0
+       b = bm*10^m + ... + b1*10 + b0
+       a*b = a0*b* + (a0*b1+a1*b0)*10 + .... + an*bm*10^(n+m) 
+       n = a.size() - 1
+       m = b.size() - 1                                             */
+    
     std::string result;
 
     result.reserve(lhs.size() + rhs.size());
@@ -302,7 +308,7 @@ std::ostream& operator<<(std::ostream &os, const BigInteger &bi)
 
     std::reverse_copy(bi.reverse_number.begin(), bi.reverse_number.end(), std::back_inserter(obverse));
 
-    if(!bi.plus)
+    if(!bi.positive)
         os << '-';
 
     os << obverse;

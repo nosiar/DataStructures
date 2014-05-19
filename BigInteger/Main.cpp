@@ -76,8 +76,13 @@ void process(std::string &line)
     {
         if(is_operator(x))
         {
+            /* operators following another operator are unary.
+               the operator with which the expression starts are unary. */
             if(s == State::INIT || s == State::OP)
             {
+                /* ex: ++++ -> + 
+                       -+-- -> - 
+                       --++ -> + */
                 if(x == "-")
                 {
                     if(unary_op == "+")
@@ -88,6 +93,7 @@ void process(std::string &line)
                 else if(x != "+")
                     throw std::invalid_argument("only '+' and '-' can be unary.");
             }
+            // the operator comes right after the first number is binary.
             else if(s == State::LHS)
             {
                 binary_op = x;
@@ -99,7 +105,7 @@ void process(std::string &line)
                 throw std::invalid_argument("invalid input.");
             }
         }
-        else
+        else // x is a number
         {
             if(s == State::INIT)
             {
