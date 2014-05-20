@@ -2,7 +2,7 @@
 
 #include <string>
 
-class BigInteger
+class BigInteger final
 {
 public:
     // default constructor
@@ -19,7 +19,12 @@ public:
         : reverse_number(std::move(other.reverse_number)), positive(other.positive) {}
 
     // destructor
-    virtual ~BigInteger() {};
+    ~BigInteger() {};
+
+    // assignment operators
+    BigInteger& operator=(const BigInteger& other);
+    BigInteger& operator=(BigInteger&& other);
+
 
     const BigInteger operator+(const BigInteger &other) const;
     const BigInteger operator-(const BigInteger &other) const;

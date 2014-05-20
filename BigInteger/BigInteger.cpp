@@ -46,6 +46,25 @@ BigInteger::BigInteger(std::string &&number) : reverse_number(std::move(number))
     }
 }
 
+/* Note: If self-assignment checks are needed,
+         both the copy and move assignment operators should have them. 
+         But I think the BigInteger class is not the case       */
+BigInteger& BigInteger::operator=(const BigInteger& other)
+{
+    positive = other.positive;
+    reverse_number = other.reverse_number;
+
+    return *this;
+}
+
+BigInteger& BigInteger::operator=(BigInteger&& other)
+{
+    positive = other.positive;
+    reverse_number = std::move(other.reverse_number);
+
+    return *this;
+}
+
 const BigInteger BigInteger::operator+(const BigInteger &other) const
 {
     BigInteger result;
