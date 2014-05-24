@@ -22,7 +22,7 @@ public:
     typedef typename A::const_reference const_reference;
     typedef typename A::difference_type difference_type;
     typedef typename A::size_type size_type;
-    
+
     class iterator;
     class const_iterator
     {
@@ -148,7 +148,7 @@ public:
             auto next_pointer = cur_pointer->next;
             delete cur_pointer;
             cur_pointer = next_pointer;
-        } 
+        }
     }
 
     iterator before_begin() { return iterator(&before_begin_); }
@@ -168,7 +168,7 @@ public:
 
     iterator insert_after(const_iterator pos, const T& val)
     {
-        _Node *node = new _Node(val, 
+        _Node *node = new _Node(val,
             const_cast<_Node *>(pos.node), pos.node->next);
         pos.node->next->prev = node;
         pos.node->next = node;
