@@ -46,7 +46,9 @@ void test()
     std::cout << BigInteger("-99999999999999") * BigInteger("99999999999999") << '\n';
     std::cout << BigInteger("-99999999999999") * BigInteger("0") << '\n';
     std::cout << BigInteger("0") * BigInteger("99999999999999") << '\n';
-    std::cout << BigInteger("0") * BigInteger("0") << '\n';
+    std::cout << BigInteger{ "0" } *BigInteger("0") << '\n';
+
+
 }
 
 enum class State { INIT, LHS, OP, RHS };
@@ -72,29 +74,29 @@ void process(std::string &line)
     std::string unary_op = "+";
     std::string binary_op;
 
-    for(auto &x : tokens)
+    for (auto &x : tokens)
     {
-        if(is_operator(x))
+        if (is_operator(x))
         {
             /* operators following another operator are unary.
                the operator with which the expression starts are unary. */
-            if(s == State::INIT || s == State::OP)
+            if (s == State::INIT || s == State::OP)
             {
-                /* ex: ++++ -> + 
-                       -+-- -> - 
+                /* ex: ++++ -> +
+                       -+-- -> -
                        --++ -> + */
-                if(x == "-")
+                if (x == "-")
                 {
-                    if(unary_op == "+")
+                    if (unary_op == "+")
                         unary_op = "-";
                     else
                         unary_op = "+";
                 }
-                else if(x != "+")
+                else if (x != "+")
                     throw std::invalid_argument("only '+' and '-' can be unary.");
             }
             // the operator comes right after the first number is binary.
-            else if(s == State::LHS)
+            else if (s == State::LHS)
             {
                 binary_op = x;
 
@@ -107,9 +109,9 @@ void process(std::string &line)
         }
         else // x is a number
         {
-            if(s == State::INIT)
+            if (s == State::INIT)
             {
-                if(unary_op == "+")
+                if (unary_op == "+")
                     lhs = BigInteger(x);
                 else
                     lhs = -BigInteger(x);
@@ -118,13 +120,13 @@ void process(std::string &line)
 
                 s = State::LHS;
             }
-            else if(s == State::LHS)
+            else if (s == State::LHS)
             {
                 throw std::invalid_argument("a number can't come after a number.");
             }
             else if (s == State::OP)
             {
-                if(unary_op == "+")
+                if (unary_op == "+")
                     rhs = BigInteger(x);
                 else
                     rhs = -BigInteger(x);
@@ -138,22 +140,24 @@ void process(std::string &line)
         }
     }
 
-    if(s != State::RHS)
+    if (s != State::RHS)
         throw std::invalid_argument("invalid input.");
-    
-    if(binary_op == "+")
+
+    if (binary_op == "+")
         std::cout << lhs + rhs << '\n';
-    else if(binary_op == "-")
+    else if (binary_op == "-")
         std::cout << lhs - rhs << '\n';
-    else if(binary_op == "*")
+    else if (binary_op == "*")
         std::cout << lhs * rhs << '\n';
 }
 
 int main()
 {
-    for(std::string line; std::getline(std::cin, line); )
+    test();
+
+    for (std::string line; std::getline(std::cin, line);)
     {
-        if(line == "quit")
+        if (line == "quit")
             break;
 
         try

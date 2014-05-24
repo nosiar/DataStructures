@@ -6,7 +6,7 @@ class BigInteger final
 {
 public:
     // default constructor
-    BigInteger() : reverse_number("0"), positive(true) {}
+    BigInteger() : reverse_number{ "0" }, positive{ true } {}
 
     // constructors
     BigInteger(const std::string &number);
@@ -14,9 +14,9 @@ public:
 
     // copy & move constructor
     BigInteger(const BigInteger &other)
-        : reverse_number(other.reverse_number), positive(other.positive) {}
+        : reverse_number{ other.reverse_number }, positive{ other.positive } {}
     BigInteger(BigInteger &&other)
-        : reverse_number(std::move(other.reverse_number)), positive(other.positive) {}
+        : reverse_number{ std::move(other.reverse_number) }, positive{ other.positive } {}
 
     // destructor
     ~BigInteger() {};
