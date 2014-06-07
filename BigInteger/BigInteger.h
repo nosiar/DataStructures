@@ -9,13 +9,13 @@ public:
     BigInteger() : reverse_number{ "0" }, positive{ true } {}
 
     // constructors
-    BigInteger(const std::string &number);
-    BigInteger(std::string &&number);
+    BigInteger(const std::string& number);
+    BigInteger(std::string&& number);
 
     // copy & move constructor
-    BigInteger(const BigInteger &other)
+    BigInteger(const BigInteger& other)
         : reverse_number{ other.reverse_number }, positive{ other.positive } {}
-    BigInteger(BigInteger &&other)
+    BigInteger(BigInteger&& other)
         : reverse_number{ std::move(other.reverse_number) }, positive{ other.positive } {}
 
     // destructor
@@ -26,9 +26,9 @@ public:
     BigInteger& operator=(BigInteger&& other);
 
 
-    const BigInteger operator+(const BigInteger &other) const;
-    const BigInteger operator-(const BigInteger &other) const;
-    const BigInteger operator*(const BigInteger &other) const;
+    const BigInteger operator+(const BigInteger& other) const;
+    const BigInteger operator-(const BigInteger& other) const;
+    const BigInteger operator*(const BigInteger& other) const;
     //const BigInteger operator/(const BigInteger &other) const;
 
     const BigInteger operator+() const;
@@ -37,14 +37,14 @@ public:
     int size() const { return reverse_number.size(); }
 
 
-    friend std::ostream& operator<<(std::ostream &os, const BigInteger &bi);
+    friend std::ostream& operator<<(std::ostream& os, const BigInteger& bi);
     friend void test();
 
 private:
-    const std::string add(const std::string &lhs, const std::string &rhs) const;
-    const std::string sub(const std::string &lhs, const std::string &rhs) const;
-    const std::string mul(const std::string &lhs, const std::string &rhs) const;
-    int compare(const std::string &lhs, const std::string &rhs) const;
+    const std::string add(const std::string& lhs, const std::string& rhs) const;
+    const std::string sub(const std::string& lhs, const std::string& rhs) const;
+    const std::string mul(const std::string& lhs, const std::string& rhs) const;
+    int compare(const std::string& lhs, const std::string& rhs) const;
 
 private:
     bool positive;

@@ -7,48 +7,46 @@
 
 void test()
 {
-    std::cout << BigInteger("23367") + BigInteger("11748") << '\n';
-    std::cout << BigInteger("23367") + BigInteger("+11748") << '\n';
-    std::cout << BigInteger("23367") + BigInteger("-11748") << '\n';
+    std::cout << BigInteger{ "23367" } +BigInteger{ "11748" } << '\n';
+    std::cout << BigInteger{ "23367" } +BigInteger{ "+11748" } << '\n';
+    std::cout << BigInteger{ "23367" } +BigInteger{ "-11748" } << '\n';
 
-    std::cout << BigInteger("+23367") + BigInteger("11748") << '\n';
-    std::cout << BigInteger("+23367") + BigInteger("+11748") << '\n';
-    std::cout << BigInteger("+23367") + BigInteger("-11748") << '\n';
+    std::cout << BigInteger{ "+23367" } +BigInteger{ "11748" } << '\n';
+    std::cout << BigInteger{ "+23367" } +BigInteger{ "+11748" } << '\n';
+    std::cout << BigInteger{ "+23367" } +BigInteger{ "-11748" } << '\n';
 
-    std::cout << BigInteger("-23367") + BigInteger("11748") << '\n';
-    std::cout << BigInteger("-23367") + BigInteger("+11748") << '\n';
-    std::cout << BigInteger("-23367") + BigInteger("-11748") << "\n\n";
+    std::cout << BigInteger{ "-23367" } +BigInteger{ "11748" } << '\n';
+    std::cout << BigInteger{ "-23367" } +BigInteger{ "+11748" } << '\n';
+    std::cout << BigInteger{ "-23367" } +BigInteger{ "-11748" } << "\n\n";
 
-    std::cout << BigInteger("23367") - BigInteger("11748") << '\n';
-    std::cout << BigInteger("23367") - BigInteger("+11748") << '\n';
-    std::cout << BigInteger("23367") - BigInteger("-11748") << '\n';
+    std::cout << BigInteger{ "23367" } -BigInteger{ "11748" } << '\n';
+    std::cout << BigInteger{ "23367" } -BigInteger{ "+11748" } << '\n';
+    std::cout << BigInteger{ "23367" } -BigInteger{ "-11748" } << '\n';
 
-    std::cout << BigInteger("+23367") - BigInteger("11748") << '\n';
-    std::cout << BigInteger("+23367") - BigInteger("+11748") << '\n';
-    std::cout << BigInteger("+23367") - BigInteger("-11748") << '\n';
+    std::cout << BigInteger{ "+23367" } -BigInteger{ "11748" } << '\n';
+    std::cout << BigInteger{ "+23367" } -BigInteger{ "+11748" } << '\n';
+    std::cout << BigInteger{ "+23367" } -BigInteger{ "-11748" } << '\n';
 
-    std::cout << BigInteger("-23367") - BigInteger("11748") << '\n';
-    std::cout << BigInteger("-23367") - BigInteger("+11748") << '\n';
-    std::cout << BigInteger("-23367") - BigInteger("-11748") << "\n\n";
+    std::cout << BigInteger{ "-23367" } -BigInteger{ "11748" } << '\n';
+    std::cout << BigInteger{ "-23367" } -BigInteger{ "+11748" } << '\n';
+    std::cout << BigInteger{ "-23367" } -BigInteger{ "-11748" } << "\n\n";
 
-    std::cout << BigInteger("-123456") - BigInteger("-123456") << '\n';
-    std::cout << BigInteger("999999") - BigInteger("-1") << '\n';
-    std::cout << BigInteger("0") - BigInteger("0") << "\n\n";
+    std::cout << BigInteger{ "-123456" } -BigInteger{ "-123456" } << '\n';
+    std::cout << BigInteger{ "999999" } -BigInteger{ "-1" } << '\n';
+    std::cout << BigInteger{ "0" } -BigInteger{ "0" } << "\n\n";
 
-    std::cout << +BigInteger("123") << '\n';
-    std::cout << -BigInteger("123") << '\n';
-    std::cout << BigInteger("1") + BigInteger("2") + BigInteger("3") << "\n\n";
+    std::cout << +BigInteger{ "123" } << '\n';
+    std::cout << -BigInteger{ "123" } << '\n';
+    std::cout << BigInteger{ "1" } +BigInteger{ "2" } +BigInteger{ "3" } << "\n\n";
 
-    std::cout << BigInteger("12345") * BigInteger("12") << '\n';
-    std::cout << BigInteger("12") * BigInteger("12345") << '\n';
-    std::cout << BigInteger("9") * BigInteger("12345") << '\n';
-    std::cout << BigInteger("12345") * BigInteger("9") << '\n';
-    std::cout << BigInteger("-99999999999999") * BigInteger("99999999999999") << '\n';
-    std::cout << BigInteger("-99999999999999") * BigInteger("0") << '\n';
-    std::cout << BigInteger("0") * BigInteger("99999999999999") << '\n';
-    std::cout << BigInteger{ "0" } *BigInteger("0") << '\n';
-
-
+    std::cout << BigInteger{ "12345" } *BigInteger{ "12" } << '\n';
+    std::cout << BigInteger{ "12" } *BigInteger{ "12345" } << '\n';
+    std::cout << BigInteger{ "9" } *BigInteger{ "12345" } << '\n';
+    std::cout << BigInteger{ "12345" } *BigInteger{ "9" } << '\n';
+    std::cout << BigInteger{ "-99999999999999" } *BigInteger{ "99999999999999" } << '\n';
+    std::cout << BigInteger{ "-99999999999999" } *BigInteger{ "0" } << '\n';
+    std::cout << BigInteger{ "0" } *BigInteger{ "99999999999999" } << '\n';
+    std::cout << BigInteger{ "0" } *BigInteger{ "0" } << '\n';
 }
 
 enum class State { INIT, LHS, OP, RHS };
@@ -58,11 +56,9 @@ bool is_operator(std::string token)
     return token.find_first_of("+-*/") != std::string::npos;
 }
 
-void process(std::string &line)
+void process(std::string& line)
 {
-    // Type alias are not supported in VC11
-    // using tokenizer = boost::tokenizer<boost::char_separator<char>>;
-    typedef boost::tokenizer<boost::char_separator<char>> tokenizer;
+    using tokenizer = boost::tokenizer < boost::char_separator<char> > ;
 
     boost::char_separator<char> sep("\t ", "+-*/");
 
@@ -74,7 +70,7 @@ void process(std::string &line)
     std::string unary_op = "+";
     std::string binary_op;
 
-    for (auto &x : tokens)
+    for (auto& x : tokens)
     {
         if (is_operator(x))
         {
@@ -153,8 +149,6 @@ void process(std::string &line)
 
 int main()
 {
-    test();
-
     for (std::string line; std::getline(std::cin, line);)
     {
         if (line == "quit")
@@ -164,7 +158,7 @@ int main()
         {
             process(line);
         }
-        catch (std::invalid_argument &e)
+        catch (std::invalid_argument& e)
         {
             std::cout << e.what() << std::endl;
         }

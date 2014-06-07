@@ -3,7 +3,7 @@
 #include <iostream>
 #include <algorithm>
 
-BigInteger::BigInteger(const std::string &number) : reverse_number(number)
+BigInteger::BigInteger(const std::string& number) : reverse_number(number)
 {
     std::reverse(reverse_number.begin(), reverse_number.end());
 
@@ -26,7 +26,7 @@ BigInteger::BigInteger(const std::string &number) : reverse_number(number)
     }
 }
 
-BigInteger::BigInteger(std::string &&number) : reverse_number(std::move(number))
+BigInteger::BigInteger(std::string&& number) : reverse_number(std::move(number))
 {
     std::reverse(reverse_number.begin(), reverse_number.end());
 
@@ -65,7 +65,7 @@ BigInteger& BigInteger::operator=(BigInteger&& other)
     return *this;
 }
 
-const BigInteger BigInteger::operator+(const BigInteger &other) const
+const BigInteger BigInteger::operator+(const BigInteger& other) const
 {
     BigInteger result;
 
@@ -95,7 +95,7 @@ const BigInteger BigInteger::operator+(const BigInteger &other) const
     return result;
 }
 
-const BigInteger BigInteger::operator-(const BigInteger &other) const
+const BigInteger BigInteger::operator-(const BigInteger& other) const
 {
     BigInteger result;
 
@@ -125,7 +125,7 @@ const BigInteger BigInteger::operator-(const BigInteger &other) const
     return result;
 }
 
-const BigInteger BigInteger::operator*(const BigInteger &other) const
+const BigInteger BigInteger::operator*(const BigInteger& other) const
 {
     BigInteger result;
 
@@ -153,14 +153,14 @@ const BigInteger BigInteger::operator-() const
     return result;
 }
 
-const std::string BigInteger::add(const std::string &lhs, const std::string &rhs) const
+const std::string BigInteger::add(const std::string& lhs, const std::string& rhs) const
 {
     std::string result;
 
     result.reserve(std::max(lhs.size(), rhs.size()) + 1);
 
-    const std::string &small = lhs.size() < rhs.size() ? lhs : rhs;
-    const std::string &large = lhs.size() >= rhs.size() ? lhs : rhs;
+    const std::string& small = lhs.size() < rhs.size() ? lhs : rhs;
+    const std::string& large = lhs.size() >= rhs.size() ? lhs : rhs;
 
     auto small_it = small.begin();
     auto large_it = large.begin();
@@ -191,14 +191,14 @@ const std::string BigInteger::add(const std::string &lhs, const std::string &rhs
     return result;
 }
 
-const std::string BigInteger::sub(const std::string &lhs, const std::string &rhs) const
+const std::string BigInteger::sub(const std::string& lhs, const std::string& rhs) const
 {
     std::string result;
 
     result.reserve(std::max(lhs.size(), rhs.size()));
 
-    const std::string &small = compare(lhs, rhs) < 0 ? lhs : rhs;
-    const std::string &large = compare(lhs, rhs) >= 0 ? lhs : rhs;
+    const std::string& small = compare(lhs, rhs) < 0 ? lhs : rhs;
+    const std::string& large = compare(lhs, rhs) >= 0 ? lhs : rhs;
 
     auto small_it = small.begin();
     auto large_it = large.begin();
@@ -245,7 +245,7 @@ const std::string BigInteger::sub(const std::string &lhs, const std::string &rhs
     return result;
 }
 
-const std::string BigInteger::mul(const std::string &lhs, const std::string &rhs) const
+const std::string BigInteger::mul(const std::string& lhs, const std::string& rhs) const
 {
     /* a = an*10^n + ... + a1*10 + a0
        b = bm*10^m + ... + b1*10 + b0
@@ -300,7 +300,7 @@ const std::string BigInteger::mul(const std::string &lhs, const std::string &rhs
     return result;
 }
 
-int BigInteger::compare(const std::string &lhs, const std::string &rhs) const
+int BigInteger::compare(const std::string& lhs, const std::string& rhs) const
 {
     if (lhs.size() < rhs.size())
         return -1;
@@ -320,7 +320,7 @@ int BigInteger::compare(const std::string &lhs, const std::string &rhs) const
     return 0;
 }
 
-std::ostream& operator<<(std::ostream &os, const BigInteger &bi)
+std::ostream& operator<<(std::ostream& os, const BigInteger& bi)
 {
     std::string obverse;
     obverse.reserve(bi.reverse_number.size());

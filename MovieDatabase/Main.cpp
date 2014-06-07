@@ -2,10 +2,19 @@
 #include <string>
 #include <vector>
 #include <boost/algorithm/string.hpp>
-#include <boost/regex.hpp>
 #include "MovieDatabase.h"
 
-void test()
+#include <list>
+#include <forward_list>
+
+template<class It>
+void f(It a, It b)
+{
+    std::cout << (a==b) << std::endl;
+}
+
+
+void movie_database_test()
 {
     MovieDatabase md;
 
@@ -21,6 +30,25 @@ void test()
 
     md.remove("HORROR", "HELLRAISER");
     md.print(); std::cout << '\n';
+}
+
+void test()
+{
+    //using List = LinkedList < std::string > ;
+    using List = std::forward_list < std::string > ;
+    
+    List l;
+    
+    l.begin() == l.end();
+    
+    auto i = l.insert_after(l.before_begin(), "haha");
+    i = l.insert_after(i, "haha2");
+    i = l.insert_after(i, "haha3");
+    l.push_front("front?");
+
+    for (auto& x : l)
+        std::cout << x << std::endl;
+    std::cout << l.empty() << std::endl;
 }
 
 MovieDatabase database;
@@ -65,6 +93,8 @@ void process(std::string& line)
 
 int main()
 {
+    test();
+
     for (std::string line; std::getline(std::cin, line);)
     {
         if (line == "QUIT")
@@ -74,7 +104,7 @@ int main()
         {
             process(line);
         }
-        catch (std::invalid_argument &e)
+        catch (std::invalid_argument& e)
         {
             std::cout << e.what() << std::endl;
         }

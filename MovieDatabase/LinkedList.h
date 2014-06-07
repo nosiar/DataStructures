@@ -8,8 +8,8 @@ class LinkedList final
     struct _Node
     {
         _Node(_Node *prev, _Node*next) : prev(prev), next(next) {}
-        _Node(const T &v, _Node *prev, _Node*next) : val(v), prev(prev), next(next) {}
-        _Node(T &&v, _Node *prev, _Node*next) : val(std::forward<T>(v)), prev(prev), next(next) {}
+        _Node(const T& v, _Node *prev, _Node*next) : val(v), prev(prev), next(next) {}
+        _Node(T&& v, _Node *prev, _Node*next) : val(std::forward<T>(v)), prev(prev), next(next) {}
 
         T val;
         mutable _Node *prev;
