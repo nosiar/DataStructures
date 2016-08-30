@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include <iterator>
 
 BigInteger::BigInteger(const std::string& number) : reverse_number(number)
 {
